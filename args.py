@@ -53,12 +53,13 @@ argparser.add_argument(
     help="Port of the Aerospike server.",
 )
 argparser.add_argument(
-    "--services-alternate", dest="alternate", action="store_true",
-    help="Use services alternate"
+    "--services-alternate",
+    dest="alternate",
+    action="store_true",
+    help="Use services alternate",
 )
 options = argparser.parse_args()
 if options.help:
     argparser.print_help()
     print()
     sys.exit()
-

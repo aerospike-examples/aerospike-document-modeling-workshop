@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# Mutated from code examples for Aerospike Modeling: IoT Sensors
+#   https://dev.to/aerospike/aerospike-modeling-iot-sensors-453a
+#   https://github.com/aerospike-examples/modeling-iot-sensors
 from args import options
 import aerospike
 from aerospike import exception as ex
@@ -9,6 +12,7 @@ from datetime import timedelta
 import pprint
 import sys
 
+
 def pause():
     input("Hit return to continue")
 
@@ -16,7 +20,7 @@ def pause():
 def print_sensor_data(rec):
     k, _, b = rec
     print(k[2])
-    print(b['t'])
+    print(b["t"])
     print("=" * 30)
 
 
@@ -55,11 +59,7 @@ try:
 
     print("\nScan for a random sampling (about 1%) of all the sensor data")
     pause()
-    predexp =  [
-        pxp.rec_digest_modulo(120),
-        pxp.integer_value(1),
-        pxp.integer_equal()
-    ]
+    predexp = [pxp.rec_digest_modulo(120), pxp.integer_value(1), pxp.integer_equal()]
     query = client.query(options.namespace, options.set)
     query.predexp(predexp)
     query.foreach(print_sensor_data)

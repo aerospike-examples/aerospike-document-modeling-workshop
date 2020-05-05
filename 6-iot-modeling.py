@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# Mutated from code examples for Aerospike Modeling: IoT Sensors
+#   https://dev.to/aerospike/aerospike-modeling-iot-sensors-453a
+#   https://github.com/aerospike-examples/modeling-iot-sensors
 from args import options
 import aerospike
 from aerospike import exception as ex
@@ -8,6 +11,7 @@ import datetime
 from datetime import timedelta
 import pprint
 import sys
+
 
 def pause():
     input("Hit return to continue")
@@ -41,11 +45,17 @@ try:
     dt = datetime.datetime(2018, 9, 1, 0, 0, 0)
     keys = []
     for i in range(1, 5):
-        keys.append((options.namespace, options.set,"sensor1-{:02d}-{:02d}".format(dt.month, dt.day)))
+        keys.append(
+            (
+                options.namespace,
+                options.set,
+                "sensor1-{:02d}-{:02d}".format(dt.month, dt.day),
+            )
+        )
         dt = dt + timedelta(days=1)
     sensor_year = client.get_many(keys)
     for rec in sensor_year:
-        k, _, b =  rec
+        k, _, b = rec
         print(k[2])
         pause()
         pp.pprint(b["t"])

@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# Mutated from code examples for Aerospike Modeling: IoT Sensors
+#   https://dev.to/aerospike/aerospike-modeling-iot-sensors-453a
+#   https://github.com/aerospike-examples/modeling-iot-sensors
 from args import options
 import aerospike
 from aerospike import exception as ex
@@ -43,7 +46,11 @@ for line in f:
                 prev_temp = prev_temp + step
                 readings.append([minute, int(prev_temp)])
                 minute = minute + 1
-            key = (options.namespace, options.set, "sensor{}-{}".format(sensor_id, prev_day))
+            key = (
+                options.namespace,
+                options.set,
+                "sensor{}-{}".format(sensor_id, prev_day),
+            )
             print(spacer)
             print("Day {0} hour {1}".format(prev_day, prev_hour))
             print(readings)
@@ -62,7 +69,9 @@ f.close()
 
 print(spacer)
 print("Sensor {} data for December 31".format(sensor_id))
-k, m, b = client.get((options.namespace, options.set, "sensor{}-12-31".format(sensor_id)))
+k, m, b = client.get(
+    (options.namespace, options.set, "sensor{}-12-31".format(sensor_id))
+)
 print(b)
 print("Above is Sensor {} data for December 31".format(sensor_id))
 print(spacer)
