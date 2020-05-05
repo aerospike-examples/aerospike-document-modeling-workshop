@@ -1,13 +1,19 @@
+# -*- coding: utf-8 -*-
+from args import options
 import aerospike
 from aerospike import exception as ex
 from aerospike_helpers.operations import map_operations as mh
 from aerospike_helpers.operations import list_operations as lh
 import pprint
-import sys
+import  sys
 
-config = {"hosts": [("192.168.141.136", 31396)], "use_services_alternate": True}
+if options.set == "None":
+    options.set = None
+config = {"hosts": [(options.host, options.port)]}
+if options.alternate:
+    config["use_services_alternate"] = True
 try:
-    client = aerospike.client(config).connect()
+    client = aerospike.client(config).connect(options.username, options.password)
 except ex.ClientError as e:
     print("failed to connect to the cluster with", config["hosts"])
     sys.exit(1)
